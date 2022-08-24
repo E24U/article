@@ -2,13 +2,11 @@ package ru.e24u.article.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.e24u.article.entity.Article;
 import ru.e24u.article.repository.ArticleRepo;
 
 import java.util.List;
-import java.util.Optional;
 
 @RequiredArgsConstructor
 @RestController
