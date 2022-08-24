@@ -8,6 +8,7 @@ import ru.e24u.article.entity.Article;
 import ru.e24u.article.repository.ArticleRepo;
 
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @RestController
@@ -17,10 +18,14 @@ public class ArticleController {
     private final ArticleRepo articleRepo;
 
     @PostMapping
-    public ResponseEntity<Article> addArticle(@RequestBody Article article) {
-        return new ResponseEntity<>(
-                this.articleRepo.save(article),
-                HttpStatus.CREATED);
+    @ResponseStatus(HttpStatus.CREATED)
+    public Article addArticle(@RequestBody Article article) {
+        try {
+            return articleRepo.save(article);
+        } catch (Exception e) {
+            throw new IllegalArgumentException("Проверьте правильность оформления статьи, "
+                    + "возможно заголовок превышает 55 символов");
+        }
     }
 
     @GetMapping()
@@ -29,11 +34,12 @@ public class ArticleController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Article> findById(@PathVariable long id) {
-        var article = this.articleRepo.findById(id);
-        return new ResponseEntity<>(
-                article.orElse(new Article()),
-                article.isPresent() ? HttpStatus.OK : HttpStatus.NOT_FOUND
-        );
+    @ResponseStatus(HttpStatus.OK)
+    public Article findById(@PathVariable long id) {
+        try {
+            return articleRepo.findById(id).get();
+        } catch (Exception e) {
+            throw new IllegalArgumentException("Данная статья не найдена.");
+        }
     }
 }

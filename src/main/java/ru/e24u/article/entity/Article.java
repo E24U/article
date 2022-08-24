@@ -7,11 +7,11 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
-@Table(name = "article")
-@Entity
+@NoArgsConstructor
 @Getter
 @Setter
-@NoArgsConstructor
+@Table(name = "article")
+@Entity
 public class Article {
      @Id
      @GeneratedValue(strategy = GenerationType.IDENTITY)
