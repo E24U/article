@@ -40,14 +40,14 @@ public class ArticleController {
         }
     }
 
-    @PutMapping("/")
+    @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public void update(@RequestBody Article article) {
+    public void update(@PathVariable long id, @RequestBody Article article) {
         try {
-            Article rsl = articleRepo.findById(article.getId()).get();
+           Article rsl = articleRepo.findById(id).get();
             rsl.setHeader(article.getHeader());
             rsl.setContent(article.getContent());
-            articleRepo.save(rsl);
+           articleRepo.save(rsl);
         } catch (Exception e) {
             throw new IllegalArgumentException();
         }
