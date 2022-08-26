@@ -21,8 +21,7 @@ public class ArticleController {
         try {
             return articleRepo.save(article);
         } catch (Exception e) {
-            throw new IllegalArgumentException("Проверьте правильность оформления статьи, "
-                    + "возможно заголовок превышает 55 символов");
+            throw new IllegalArgumentException("Проверьте правильность оформления статьи");
         }
     }
 
@@ -38,6 +37,31 @@ public class ArticleController {
             return articleRepo.findById(id).get();
         } catch (Exception e) {
             throw new IllegalArgumentException("Данная статья не найдена.");
+        }
+    }
+
+    @PutMapping("/")
+    @ResponseStatus(HttpStatus.OK)
+    public void update(@RequestBody Article article) {
+        try {
+            Article rsl = articleRepo.findById(article.getId()).get();
+            rsl.setHeader(article.getHeader());
+            rsl.setContent(article.getContent());
+            articleRepo.save(rsl);
+        } catch (Exception e) {
+            throw new IllegalArgumentException();
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public void delete(@PathVariable long id) {
+        try {
+            Article article = new Article();
+            article.setId(id);
+            articleRepo.delete(article);
+        } catch (Exception e) {
+            throw new IllegalArgumentException();
         }
     }
 }
