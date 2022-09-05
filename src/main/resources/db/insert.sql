@@ -1,1 +1,0 @@
-insert into  article(header, content) values ('Добро пожаловать', 'ДОбро пожаловать')
