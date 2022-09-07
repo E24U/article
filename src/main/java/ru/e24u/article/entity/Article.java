@@ -13,10 +13,9 @@ import javax.persistence.*;
 @Table(name = "article")
 @Entity
 public class Article {
-     @Id
-     @GeneratedValue(strategy = GenerationType.IDENTITY)
-     private Long id;
-     private String header;
-     private String content;
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String title;
+    private String content;
 }
