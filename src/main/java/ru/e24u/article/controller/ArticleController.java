@@ -41,7 +41,7 @@ public class ArticleController {
     public void update(@RequestParam() long id, @RequestBody Article article) {
         try {
             Article rsl = articleRepo.findById(id).get();
-            rsl.setHeader(article.getHeader());
+            rsl.setTitle(article.getTitle());
             rsl.setContent(article.getContent());
             articleRepo.save(rsl);
         } catch (Exception e) {
